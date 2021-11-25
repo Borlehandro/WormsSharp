@@ -1,0 +1,16 @@
+D:\WormsSharp\WormsSharp\WormsApp\bin\Debug\net5.0\WormsApp.exe
+D:\WormsSharp\WormsSharp\WormsApp\bin\Debug\net5.0\WormsApp.deps.json
+D:\WormsSharp\WormsSharp\WormsApp\bin\Debug\net5.0\WormsApp.runtimeconfig.json
+D:\WormsSharp\WormsSharp\WormsApp\bin\Debug\net5.0\WormsApp.runtimeconfig.dev.json
+D:\WormsSharp\WormsSharp\WormsApp\bin\Debug\net5.0\WormsApp.dll
+D:\WormsSharp\WormsSharp\WormsApp\bin\Debug\net5.0\ref\WormsApp.dll
+D:\WormsSharp\WormsSharp\WormsApp\bin\Debug\net5.0\WormsApp.pdb
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\WormsApp.csprojAssemblyReference.cache
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\WormsApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\WormsApp.AssemblyInfoInputs.cache
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\WormsApp.AssemblyInfo.cs
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\WormsApp.csproj.CoreCompileInputs.cache
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\WormsApp.dll
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\ref\WormsApp.dll
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\WormsApp.pdb
+D:\WormsSharp\WormsSharp\WormsApp\obj\Debug\net5.0\WormsApp.genruntimeconfig.cache
