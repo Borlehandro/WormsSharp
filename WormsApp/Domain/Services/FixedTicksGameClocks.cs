@@ -19,7 +19,7 @@ namespace WormsApp.Domain.Services
         {
             while (_currentTick < _ticksToRun)
             {
-                onTickCallback(++_currentTick, _gameService.NextTick());
+                onTickCallback(++_currentTick, _gameService.NextTick(_currentTick));
             }
         }
     }

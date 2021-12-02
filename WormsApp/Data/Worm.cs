@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WormsApp.Domain;
 
 namespace WormsApp.Data
 {
@@ -7,41 +8,48 @@ namespace WormsApp.Data
         // TODO: Remove brain
         private class Brain
         {
-            private readonly List<MoveIntent> _movingHistory = new();
-            private readonly IMovingStrategy _strategy;
+            private readonly List<Intent> _decisionsHistory = new();
+            public IStrategy Strategy { get; }
 
-            public Brain(IMovingStrategy strategy)
+            public Brain(IStrategy strategy)
             {
-                _strategy = strategy;
+                Strategy = strategy;
             }
 
-            public MoveIntent MakeMoveDecision(Scene scene)
+            public Intent MakeDecision(Scene scene)
             {
-                var moveDecision = _strategy.MakeMoveDecision(_movingHistory, scene);
-                _movingHistory.Add(moveDecision);
+                var moveDecision = Strategy.MakeMoveDecision(_decisionsHistory, scene);
+                _decisionsHistory.Add(moveDecision);
                 return moveDecision;
             }
         }
 
         private readonly Brain _brain;
         public Coordinates Coordinates { get; set; }
-        private string Name { get; }
+        public int Energy;
+        public string Name { get; }
 
-        public Worm(Coordinates coordinates, string name, IMovingStrategy movingStrategy)
+        public Worm(Coordinates coordinates, string name, IStrategy strategy)
         {
             Coordinates = coordinates;
             Name = name;
-            _brain = new Brain(movingStrategy);
+            Energy = 10;
+            _brain = new Brain(strategy);
         }
 
-        public MoveIntent MakeMoveDecision(Scene scene)
+        public Intent MakeDecision(Scene scene)
         {
-            return _brain.MakeMoveDecision(scene);
+            return _brain.MakeDecision(scene);
+        }
+
+        public IStrategy GetStrategy()
+        {
+            return _brain.Strategy;
         }
 
         public override string ToString()
         {
-            return "{ " + "name:\"" + Name + "\", " + "x:" + Coordinates.X + ", " + "y:" + Coordinates.Y + " }";
+            return Name + "-" + Energy + " " + Coordinates;
         }
     }
 }

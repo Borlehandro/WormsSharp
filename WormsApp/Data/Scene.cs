@@ -4,13 +4,13 @@ namespace WormsApp.Data
 {
     public class Scene
     {
-        private int _sizeX;
-        private int _sizeY;
+        public int SizeX { get; }
+        public int SizeY { get; }
 
         public Scene(int sizeY, int sizeX)
         {
-            _sizeY = sizeY;
-            _sizeX = sizeX;
+            SizeY = sizeY;
+            SizeX = sizeX;
         }
 
         public List<Worm> Worms { get; } = new();
