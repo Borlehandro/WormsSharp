@@ -5,6 +5,6 @@ namespace WormsApp.Domain
 {
     public interface IStrategy
     {
-        public Intent MakeMoveDecision(List<Intent> intentsHistory, Scene scene);
+        public Intent MakeDecision(Worm worm, List<Intent> intentsHistory, Scene scene);
     }
 }

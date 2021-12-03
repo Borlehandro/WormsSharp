@@ -9,7 +9,7 @@ namespace WormsApp.Domain
     {
         private readonly Intent _startMoveIntent = new Intent(Intent.IntentType.Move, Intent.MoveDirection.Up);
 
-        public Intent MakeMoveDecision(List<Intent> intentsHistory, Scene scene)
+        public Intent MakeDecision(Worm worm, List<Intent> intentsHistory, Scene scene)
         {
             if (intentsHistory.Count == 0) return _startMoveIntent;
 

@@ -5,22 +5,27 @@ namespace WormsApp.Data
 {
     public class Worm
     {
+        public static int IdSequence = 0;
+
         // TODO: Remove brain
         private class Brain
         {
             private readonly List<Intent> _decisionsHistory = new();
             public IStrategy Strategy { get; }
 
-            public Brain(IStrategy strategy)
+            private readonly Worm _worm;
+
+            public Brain(IStrategy strategy, Worm worm)
             {
                 Strategy = strategy;
+                _worm = worm;
             }
 
             public Intent MakeDecision(Scene scene)
             {
-                var moveDecision = Strategy.MakeMoveDecision(_decisionsHistory, scene);
-                _decisionsHistory.Add(moveDecision);
-                return moveDecision;
+                var decision = Strategy.MakeDecision(_worm, _decisionsHistory, scene);
+                _decisionsHistory.Add(decision);
+                return decision;
             }
         }
 
@@ -34,7 +39,7 @@ namespace WormsApp.Data
             Coordinates = coordinates;
             Name = name;
             Energy = 10;
-            _brain = new Brain(strategy);
+            _brain = new Brain(strategy, this);
         }
 
         public Intent MakeDecision(Scene scene)

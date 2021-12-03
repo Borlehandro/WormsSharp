@@ -2,7 +2,7 @@
 
 namespace WormsApp.Domain.Services
 {
-    public class NormalRandomGenerator
+    public static class NormalRandomGenerator
     {
         public static int NextNormal(Random r, double mu = 0, double sigma = 1)
         {

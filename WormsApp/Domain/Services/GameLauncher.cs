@@ -10,7 +10,7 @@ namespace WormsApp.Domain.Services
         public GameLauncher(StreamWriter  gameOutput)
         {
             _gameOutput = gameOutput;
-            _gameClocks = new FixedTicksGameClocks(100, new GameService(100, 100));
+            _gameClocks = new FixedTicksGameClocks(100, new GameService());
         }
 
         public void Start()
