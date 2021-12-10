@@ -1,27 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 using WormsApp.Data;
 
 namespace WormsApp.Domain.Services
 {
-    public class GameService
+    public class GameService : IHostedService
     {
+        public const int TicksToRun = 100;
+
         public const int FoodEnergy = 10;
         private const int FoodExpiredTicks = 11;
 
         private const int MakeChildEnergy = 10;
         private const int TickEnergy = 1;
 
+        private readonly IHostApplicationLifetime _appLifetime;
         private readonly Scene _scene;
+        private readonly FoodGenerator _foodGenerator;
+        private readonly IGameClocks _clocks;
+        private readonly ILogger _logger;
 
-        public GameService()
+        public GameService(ILogger logger, IHostApplicationLifetime appLifetime, FoodGenerator foodGenerator)
         {
+            _logger = logger;
+            _appLifetime = appLifetime;
+            _foodGenerator = foodGenerator;
             _scene = new Scene();
             _scene.Worms.Add(new Worm(new Coordinates(0, 0), "Test", new NearestFoodStrategy()));
+
+            _clocks = new FixedTicksGameClocks(TicksToRun);
         }
 
-        public GameState NextTick(long tick)
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            // TODO: Add cancellation support
+            Task.Run(Run);
+            return Task.CompletedTask;
+        }
+
+        private void Run()
+        {
+            _clocks.Launch(NextTick);
+            _logger.Dispose();
+        }
+
+        private void NextTick(long tick)
         {
             _scene.Foods.RemoveAll(food => food.ExpiredAt <= tick);
             SpawnFood(tick);
@@ -30,29 +57,12 @@ namespace WormsApp.Domain.Services
             _scene.Worms.RemoveAll((worm) => worm.Energy <= 0);
             _scene.Worms.AddRange(wormsToAdd);
 
-            return new GameState(_scene.Worms, _scene.Foods);
+            _logger.Log(new GameState(_scene.Worms, _scene.Foods).ToString());
         }
 
         private void SpawnFood(long tick)
         {
-            Coordinates coordinates;
-            do
-            {
-                coordinates = new Coordinates(
-                    X: NormalRandomGenerator.NextNormal(new Random(), sigma: 5D),
-                    Y: NormalRandomGenerator.NextNormal(new Random(), sigma: 5D)
-                );
-            } while (IsFood(coordinates));
-
-            var worm = _scene.Worms.FirstOrDefault((worm) => worm.Coordinates == coordinates);
-            if (worm != null)
-            {
-                worm.Energy += FoodEnergy;
-            }
-            else
-            {
-                _scene.Foods.Add(new Food(coordinates, tick + FoodExpiredTicks));
-            }
+            _foodGenerator.GenerateFood(tick, _scene);
         }
 
         private void ApplyIntent(long tick, Worm worm, Intent intent, List<Worm> wormsToAdd)
@@ -118,6 +128,11 @@ namespace WormsApp.Domain.Services
         private bool IsWorm(Coordinates coordinates)
         {
             return _scene.Worms.Any((worm) => worm.Coordinates == coordinates);
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }
