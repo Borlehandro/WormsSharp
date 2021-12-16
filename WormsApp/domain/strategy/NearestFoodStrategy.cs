@@ -4,13 +4,13 @@ using System.Linq;
 using WormsApp.Data;
 using WormsApp.Domain.Services;
 
-namespace WormsApp.Domain
+namespace WormsApp.domain.strategy
 {
     public class NearestFoodStrategy : IStrategy
     {
         private List<Intent.MoveDirection> _currentWay = new();
 
-        public Intent MakeDecision(Worm worm, List<Intent> intentsHistory, Scene scene)
+        public Intent MakeDecision(Worm worm, Scene scene)
         {
             if (worm.Energy >= 20)
             {
@@ -50,14 +50,14 @@ namespace WormsApp.Domain
             return new Intent(Intent.IntentType.Move, Intent.MoveDirection.Up);
         }
 
-        private int DistanceBetween(Coordinates first, Coordinates second)
+        private static int DistanceBetween(Coordinates first, Coordinates second)
         {
             var (x1, y1) = second;
             var (x2, y2) = first;
             return Math.Abs(x2 - x1) + Math.Abs(y2 - y1);
         }
 
-        private List<Intent.MoveDirection> BuildWay(Coordinates from, Coordinates to)
+        private static List<Intent.MoveDirection> BuildWay(Coordinates from, Coordinates to)
         {
             var (x1, y1) = from;
             var (x2, y2) = to;

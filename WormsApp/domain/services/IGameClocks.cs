@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using WormsApp.Data;
-
-namespace WormsApp.Domain.Services
+﻿namespace WormsApp.Domain.Services
 {
     public interface IGameClocks
     {

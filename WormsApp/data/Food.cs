@@ -6,5 +6,5 @@
         {
             return Coordinates.ToString();
         }
-    };
+    }
 }

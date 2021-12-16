@@ -16,12 +16,12 @@ namespace WormsApp.Domain.Services
             do
             {
                 coordinates = new Coordinates(
-                    X: NormalRandomGenerator.NextNormal(new Random(), sigma: 5D),
-                    Y: NormalRandomGenerator.NextNormal(new Random(), sigma: 5D)
+                    NormalRandomGenerator.NextNormal(new Random(), sigma: 5D),
+                    NormalRandomGenerator.NextNormal(new Random(), sigma: 5D)
                 );
             } while (IsFood(coordinates, scene));
 
-            var worm = scene.Worms.FirstOrDefault((worm) => worm.Coordinates == coordinates);
+            var worm = scene.Worms.FirstOrDefault(worm => worm.Coordinates == coordinates);
             if (worm != null)
             {
                 worm.Energy += FoodEnergy;
@@ -32,9 +32,9 @@ namespace WormsApp.Domain.Services
             }
         }
 
-        private bool IsFood(Coordinates coordinates, Scene scene)
+        private static bool IsFood(Coordinates coordinates, Scene scene)
         {
-            return scene.Foods.Any((food) => food.Coordinates == coordinates);
+            return scene.Foods.Any(food => food.Coordinates == coordinates);
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace WormsApp.Domain.Services
 {
     public class SimpleLogger : ILogger
     {
-        private StreamWriter _writer;
+        private readonly StreamWriter _writer;
 
         public SimpleLogger(StreamWriter writer)
         {
@@ -18,6 +19,7 @@ namespace WormsApp.Domain.Services
 
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
             _writer.Dispose();
         }
     }

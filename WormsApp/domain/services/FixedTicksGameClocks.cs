@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WormsApp.Domain.Services
+﻿namespace WormsApp.Domain.Services
 {
     public class FixedTicksGameClocks : IGameClocks
     {
@@ -17,7 +15,6 @@ namespace WormsApp.Domain.Services
         {
             while (_currentTick < _ticksToRun)
             {
-                Console.Out.WriteLine("Tick");
                 onTickCallback(++_currentTick);
             }
         }

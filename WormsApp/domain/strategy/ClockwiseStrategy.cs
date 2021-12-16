@@ -1,19 +1,17 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using WormsApp.Data;
-using WormsApp.Domain;
 
-namespace WormsApp.Domain
+namespace WormsApp.domain.strategy
 {
     public class ClockwiseStrategy : IStrategy
     {
-        private readonly Intent _startMoveIntent = new Intent(Intent.IntentType.Move, Intent.MoveDirection.Up);
+        private readonly Intent _startMoveIntent = new(Intent.IntentType.Move, Intent.MoveDirection.Up);
 
-        public Intent MakeDecision(Worm worm, List<Intent> intentsHistory, Scene scene)
+        public Intent MakeDecision(Worm worm, Scene scene)
         {
-            if (intentsHistory.Count == 0) return _startMoveIntent;
+            if (worm.DecisionsHistory.Count == 0) return _startMoveIntent;
 
-            var previousIntent = intentsHistory[^1];
+            var previousIntent = worm.DecisionsHistory[^1];
             return previousIntent.Direction switch
             {
                 Intent.MoveDirection.Up => new Intent(Intent.IntentType.Move, Intent.MoveDirection.Right),

@@ -8,11 +8,11 @@ namespace WormsApp.Data
         public override string ToString()
         {
             var stringBuilder = new StringBuilder("Worms: [");
-            Worms.ForEach((worm) => stringBuilder.Append(worm + ", "));
+            Worms.ForEach(worm => stringBuilder.Append(worm + ", "));
             if (Worms.Count > 0)
                 stringBuilder.Length -= 2;
             stringBuilder.Append("], Food[");
-            Foods.ForEach((food) => stringBuilder.Append(food + ","));
+            Foods.ForEach(food => stringBuilder.Append(food + ","));
             if (Foods.Count > 0)
                 stringBuilder.Length--;
             stringBuilder.Append(']');

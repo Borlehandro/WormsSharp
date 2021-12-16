@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using WormsApp.Data;
+﻿using WormsApp.Data;
 
-namespace WormsApp.Domain
+namespace WormsApp.domain.strategy
 {
     public interface IStrategy
     {
-        public Intent MakeDecision(Worm worm, List<Intent> intentsHistory, Scene scene);
+        public Intent MakeDecision(Worm worm, Scene scene);
     }
 }
