@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WormsApp", "WormsApp\WormsApp.csproj", "{1FE42C00-C436-4BC9-B78F-30B89CEDEDF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WormsAppTest", "WormsAppTest\WormsAppTest.csproj", "{705D20F5-7F29-4A08-BD64-A204EB4CF204}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +12,9 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1FE42C00-C436-4BC9-B78F-30B89CEDEDF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1FE42C00-C436-4BC9-B78F-30B89CEDEDF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705D20F5-7F29-4A08-BD64-A204EB4CF204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705D20F5-7F29-4A08-BD64-A204EB4CF204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705D20F5-7F29-4A08-BD64-A204EB4CF204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705D20F5-7F29-4A08-BD64-A204EB4CF204}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
