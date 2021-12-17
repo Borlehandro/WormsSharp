@@ -1,4 +1,3 @@
-using System;
 using NUnit.Framework;
 using WormsApp.Data;
 using WormsApp.Domain.Services;
