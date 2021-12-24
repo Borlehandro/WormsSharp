@@ -5,5 +5,6 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::705D20F5-7F29-4A08-BD64-A204EB4CF204::net5.0::WormsAppTest.FoodGenerationTests.TestGeneration&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::705D20F5-7F29-4A08-BD64-A204EB4CF204::net5.0::WormsAppTest.NearestFoodStrategyTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::705D20F5-7F29-4A08-BD64-A204EB4CF204::net5.0::WormsAppTest.GameServiceTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

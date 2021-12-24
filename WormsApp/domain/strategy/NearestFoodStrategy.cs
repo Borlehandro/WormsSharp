@@ -8,7 +8,6 @@ namespace WormsApp.domain.strategy
 {
     public class NearestFoodStrategy : IStrategy
     {
-        private List<Intent.MoveDirection> _currentWay = new();
 
         public Intent MakeDecision(Worm worm, Scene scene)
         {
@@ -17,10 +16,10 @@ namespace WormsApp.domain.strategy
                 return new Intent(Intent.IntentType.MakeChild, Intent.MoveDirection.Up);
             }
             
-            if (_currentWay.Count > 0)
+            if (worm.CurrentWay.Count > 0)
             {
-                var intent = new Intent(Intent.IntentType.Move, _currentWay[0]);
-                _currentWay.RemoveAt(0);
+                var intent = new Intent(Intent.IntentType.Move, worm.CurrentWay[0]);
+                worm.CurrentWay.RemoveAt(0);
                 return intent;
             }
 
@@ -40,9 +39,9 @@ namespace WormsApp.domain.strategy
                 if (minDistance > GameService.FoodEnergy)
                     return new Intent(Intent.IntentType.Nothing, Intent.MoveDirection.Up);
                 
-                _currentWay = BuildWay(worm.Coordinates, nearestFood.Coordinates);
-                var intent = new Intent(Intent.IntentType.Move, _currentWay[0]);
-                _currentWay.RemoveAt(0);
+                worm.CurrentWay = BuildWay(worm.Coordinates, nearestFood.Coordinates);
+                var intent = new Intent(Intent.IntentType.Move, worm.CurrentWay[0]);
+                worm.CurrentWay.RemoveAt(0);
                 return intent;
 
             }

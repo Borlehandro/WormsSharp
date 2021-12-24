@@ -19,7 +19,7 @@ namespace WormsApp.Domain.Services
         private const int MakeChildEnergy = 10;
         private const int TickEnergy = 1;
 
-        private readonly Scene _scene;
+        public readonly Scene Scene;
         private readonly FoodGenerator _foodGenerator;
         private readonly IGameClocks _clocks;
         private readonly ILogger _logger;
@@ -34,15 +34,14 @@ namespace WormsApp.Domain.Services
             _decisionStrategy = decisionStrategy;
             _namesGenerator = namesGenerator;
 
-            _scene = new Scene();
-            _scene.Worms.Add(new Worm(new Coordinates(0, 0), "Test", StartEnergy));
+            Scene = new Scene();
+            Scene.Worms.Add(new Worm(new Coordinates(0, 0), "Test", StartEnergy));
 
             _clocks = new FixedTicksGameClocks(TicksToRun);
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            // TODO: Add cancellation support
             Task.Run(Run);
             return Task.CompletedTask;
         }
@@ -52,18 +51,18 @@ namespace WormsApp.Domain.Services
             _clocks.Launch(NextTick);
         }
 
-        private void NextTick(long tick)
+        public void NextTick(long tick)
         {
-            _scene.Foods.RemoveAll(food => food.ExpiredAt <= tick);
+            Scene.Foods.RemoveAll(food => food.ExpiredAt <= tick);
             SpawnFood(tick);
 
             var wormsToAdd = new List<Worm>();
 
-            _scene.Worms.ForEach(worm => { ApplyIntent(tick, worm, MakeDecision(worm), wormsToAdd); });
-            _scene.Worms.RemoveAll(worm => worm.Energy <= 0);
-            _scene.Worms.AddRange(wormsToAdd);
+            Scene.Worms.ForEach(worm => { ApplyIntent(tick, worm, MakeDecision(worm), wormsToAdd); });
+            Scene.Worms.RemoveAll(worm => worm.Energy <= 0);
+            Scene.Worms.AddRange(wormsToAdd);
 
-            _logger.Log(new GameState(_scene.Worms, _scene.Foods).ToString());
+            _logger.Log(new GameState(Scene.Worms, Scene.Foods).ToString());
 
             if (tick == TicksToRun)
             {
@@ -73,17 +72,17 @@ namespace WormsApp.Domain.Services
 
         private void SpawnFood(long tick)
         {
-            _foodGenerator.GenerateFood(tick, _scene);
+            _foodGenerator.GenerateFood(tick, Scene);
         }
 
         private Intent MakeDecision(Worm worm)
         {
-            var intent = _decisionStrategy.MakeDecision(worm, _scene);
+            var intent = _decisionStrategy.MakeDecision(worm, Scene);
             worm.DecisionsHistory.Add(intent);
             return intent;
         }
 
-        private void ApplyIntent(long tick, Worm worm, Intent intent, List<Worm> wormsToAdd)
+        public void ApplyIntent(long tick, Worm worm, Intent intent, List<Worm> wormsToAdd)
         {
             var (x, y) = worm.Coordinates;
             switch (intent.Type)
@@ -101,11 +100,11 @@ namespace WormsApp.Domain.Services
                     {
                         worm.Coordinates = newCoordinates;
                         var foodInCoordinates =
-                            _scene.Foods.FirstOrDefault(food => worm.Coordinates == food.Coordinates);
+                            Scene.Foods.FirstOrDefault(food => worm.Coordinates == food.Coordinates);
                         if (foodInCoordinates != null)
                         {
                             worm.Energy += FoodEnergy;
-                            _scene.Foods.Remove(foodInCoordinates);
+                            Scene.Foods.Remove(foodInCoordinates);
                         }
                     }
 
@@ -140,12 +139,12 @@ namespace WormsApp.Domain.Services
 
         private bool IsFood(Coordinates coordinates)
         {
-            return _scene.Foods.Any(food => food.Coordinates == coordinates);
+            return Scene.Foods.Any(food => food.Coordinates == coordinates);
         }
 
         private bool IsWorm(Coordinates coordinates)
         {
-            return _scene.Worms.Any(worm => worm.Coordinates == coordinates);
+            return Scene.Worms.Any(worm => worm.Coordinates == coordinates);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

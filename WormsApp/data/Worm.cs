@@ -10,6 +10,7 @@ namespace WormsApp.Data
         private readonly string _name;
 
         public readonly List<Intent> DecisionsHistory = new();
+        public List<Intent.MoveDirection> CurrentWay = new();
 
         public Worm(Coordinates coordinates, string name, int startEnergy)
         {
